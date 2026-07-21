@@ -1,0 +1,67 @@
+---
+// ============================================================================
+// TODO: REPLACE THIS ENTIRE FORM WITH YOUR REAL BUTTONDOWN EMBED SNIPPET.
+//
+// Where to get it:
+//   Buttondown dashboard → Settings → Embedding → copy the HTML form snippet.
+//
+// Why it must come from your dashboard: the form's `action` URL and its input
+// `name` attributes are tied to your specific account. The markup below is a
+// visual placeholder ONLY — it is deliberately non-functional and will not
+// collect a single subscriber until you swap it out.
+//
+// How to swap it:
+//   Delete the <form> element below and paste Buttondown's snippet in its
+//   place. Keep the surrounding <section> so the styling still applies, and
+//   add class="subscribe__input" / class="subscribe__button" to their input
+//   and button so it inherits the site's look.
+// ============================================================================
+---
+
+<section class="subscribe" id="subscribe">
+  <p class="subscribe__label">Subscribe</p>
+  <p class="subscribe__note">
+    One photo a week, with a short story underneath. Nothing else.
+  </p>
+
+  <!-- PLACEHOLDER FORM — non-functional. Replace with Buttondown embed. -->
+  <form class="subscribe__form" id="placeholder-subscribe-form">
+    <label class="visually-hidden" for="subscribe-email">Email address</label>
+    <input
+      class="subscribe__input"
+      id="subscribe-email"
+      type="email"
+      placeholder="you@example.com"
+      autocomplete="email"
+      required
+    />
+    <button class="subscribe__button" type="submit">Subscribe</button>
+  </form>
+</section>
+
+<script>
+  // Placeholder only — delete this along with the form above when you paste
+  // in the Buttondown embed snippet.
+  document
+    .getElementById('placeholder-subscribe-form')
+    ?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert(
+        'Placeholder form — paste your Buttondown embed snippet into src/components/Subscribe.astro to make this live.'
+      );
+    });
+</script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'entries'>;
+  /** On the stream, the title links to the permalink. On the permalink, it doesn't. */
+  linked?: boolean;
+  /** Only the topmost photo on the page should load eagerly. */
+  priority?: boolean;
+}
+
+const { entry, linked = false, priority = false } = Astro.props;
+const { Content } = await render(entry);
+
+const heading = entry.data.title ?? `Week ${entry.data.week}`;
+const href = `/entry/${entry.id}/`;
+
+const dateLabel = entry.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<article class="entry">
+  <figure class="entry__photo">
+    <Image
+      src={entry.data.photo}
+      alt={`${heading} — photograph by ${entry.data.photographer}`}
+      width={1200}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
+    />
+  </figure>
+
+  <h2 class="entry__title">
+    {linked ? <a href={href}>{heading}</a> : heading}
+  </h2>
+
+  <div class="entry__body">
+    <Content />
+  </div>
+
+  <p class="byline">
+    {entry.data.photographer} · Week {entry.data.week} · {dateLabel}
+  </p>
+</article>

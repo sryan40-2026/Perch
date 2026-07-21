@@ -1,0 +1,30 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Entry from '../../components/Entry.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('entries');
+  return entries.map((entry) => ({
+    // Astro 7: the glob loader exposes `id` — `entry.slug` no longer exists.
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: CollectionEntry<'entries'> };
+
+const { entry } = Astro.props;
+const heading = entry.data.title ?? `Week ${entry.data.week}`;
+---
+
+<Base
+  title={heading}
+  description={`${heading} — photograph by ${entry.data.photographer}.`}
+>
+  <div class="stream">
+    <Entry entry={entry} priority />
+  </div>
+
+  <a class="back" href="/">← All entries</a>
+</Base>

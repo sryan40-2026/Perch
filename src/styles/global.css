@@ -1,0 +1,243 @@
+/* Perch — pure white, black text, generous whitespace, one typeface. */
+
+:root {
+  --ink: #111111;
+  --ink-soft: #6b6b6b;
+  --rule: #e6e6e6;
+  --paper: #ffffff;
+
+  /* One typeface: Courier Prime, a typewriter face redrawn for screens.
+     Self-hosted by Astro's Fonts API; falls back to Courier New. */
+  --type: var(--font-courier-prime), 'Courier New', Courier, monospace;
+
+  /* Measured in `ch` so the line length tracks the font's own character
+     width — monospace glyphs are wider, so a rem-based column reads short. */
+  --measure: 62ch; /* comfortable reading column for the stories */
+  --frame: 46rem; /* slightly wider column for photos */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--type);
+  /* Courier runs small and light; a slightly larger size and looser leading
+     keep it from looking cramped on screen. */
+  font-size: 1rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto; /* never distort, never crop */
+}
+
+/* ---------- shell ---------- */
+
+.shell {
+  max-width: var(--frame);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.5rem 0 0;
+}
+
+.masthead__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.masthead__title a {
+  text-decoration: none;
+}
+
+.masthead__link {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.tagline {
+  margin: 3.5rem 0 0;
+  max-width: var(--measure);
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.foot {
+  margin: 7rem 0 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.foot a {
+  color: inherit;
+}
+
+/* ---------- journal stream ---------- */
+
+.stream {
+  margin-top: 4.5rem;
+}
+
+.entry + .entry {
+  margin-top: 7rem;
+  padding-top: 7rem;
+  border-top: 1px solid var(--rule);
+}
+
+.entry__photo {
+  margin: 0;
+}
+
+.entry__title {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 2rem 0 0;
+  max-width: var(--measure);
+}
+
+.entry__title a {
+  text-decoration: none;
+}
+
+.entry__title a:hover {
+  text-decoration: underline;
+}
+
+.entry__body {
+  max-width: var(--measure);
+  margin-top: 1.25rem;
+}
+
+.entry__body p {
+  margin: 0 0 1.15em;
+}
+
+.entry__body p:last-child {
+  margin-bottom: 0;
+}
+
+.byline {
+  margin-top: 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- permalink page ---------- */
+
+.back {
+  display: inline-block;
+  margin-top: 3.5rem;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- subscribe ---------- */
+
+.subscribe {
+  margin-top: 6rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+  max-width: var(--measure);
+}
+
+.subscribe__label {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.75rem;
+}
+
+.subscribe__note {
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.subscribe__form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.subscribe__input {
+  flex: 1 1 16rem;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.subscribe__button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.subscribe__button:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (max-width: 34rem) {
+  .shell {
+    padding: 0 1.125rem;
+  }
+
+  .entry + .entry {
+    margin-top: 4.5rem;
+    padding-top: 4.5rem;
+  }
+
+  .stream {
+    margin-top: 3rem;
+  }
+}
