@@ -1,14 +1,10 @@
 ---
 week: 1
-date: 2026-07-17
+date: 2026-07-21
 photographer: Sean Ryan
 photo: ../../images/week-01-sean.jpg
-title: Low Tide
+title: Christian and 12th
 ---
 
-The tide went out further than I'd seen it go all year, and for about twenty
-minutes the whole flat was a mirror. I had the wrong lens on and no time to
-change it, so this is the frame I got rather than the one I wanted.
-
-That happens more often than not. I've started to think the gap between the two
-is the actual subject.
+I found this on the corner of Christian and 12th street. I thought it was an
+artist. Turned out to be the album cover. I still like how I captured the light.
