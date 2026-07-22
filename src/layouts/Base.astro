@@ -32,7 +32,10 @@ const pageTitle = title ? `${title} — ${SITE.title}` : SITE.title;
     <div class="shell">
       <header class="masthead">
         <p class="masthead__title"><a href="/">{SITE.title}</a></p>
-        <a class="masthead__link" href="/#subscribe">Subscribe</a>
+        <nav class="masthead__nav">
+          <a class="masthead__link" href="/about/">About</a>
+          <a class="masthead__link" href="/#subscribe">Subscribe</a>
+        </nav>
       </header>
 
       <main>

@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import Subscribe from '../components/Subscribe.astro';
+---
+
+<Base
+  title="About"
+  description="Two photographers trading one photograph a week, each with a short written story."
+>
+  <article class="prose">
+    <h1 class="prose__title">About</h1>
+
+    <p>
+      Perch is a two-person photo journal. Sean Ryan and Kevin Lawrence trade
+      one photograph a week, each with a short written piece underneath.
+    </p>
+
+    <p>
+      One posts a photograph; the next week the other posts one back. Not a
+      response exactly — just the next frame in a conversation that happens to
+      be made of pictures instead of sentences. The writing matters as much as
+      the picture: a paragraph or two about where it came from, what we were
+      after, what we missed.
+    </p>
+
+    <div class="ledger">
+      <p class="ledger__row">
+        <span class="ledger__name">Sean Ryan</span>
+        <span class="ledger__weeks">Weeks 1, 3, 5&hellip;</span>
+      </p>
+      <p class="ledger__row">
+        <span class="ledger__name">Kevin Lawrence</span>
+        <span class="ledger__weeks">Weeks 2, 4, 6&hellip;</span>
+      </p>
+    </div>
+
+    <h2 class="prose__heading">What to expect</h2>
+
+    <p>
+      Subscribe and each entry arrives by email when it goes up — one
+      photograph, a few words, nothing else. No fixed schedule, no promotions,
+      no filler. Everything stays on the site too: scroll the homepage and the
+      whole run is there, newest first, and every entry has its own page so a
+      single photograph can be shared on its own.
+    </p>
+
+    <p>
+      There are no comments, no likes, no follower counts, and no algorithm
+      deciding who sees what. People subscribe and the photograph arrives. The
+      restraint is the point.
+    </p>
+
+    <h2 class="prose__heading">The rules, such as they are</h2>
+
+    <ul class="rules">
+      <li>One photograph. Not a set, not a gallery — one.</li>
+      <li>Roughly weekly. Miss a week; the thing survives.</li>
+      <li>No theme, no brief, no assignment. Shoot what you notice.</li>
+      <li>Phone pictures count.</li>
+    </ul>
+
+    <p class="prose__back"><a href="/">&larr; Read the journal</a></p>
+  </article>
+
+  <Subscribe />
+</Base>
