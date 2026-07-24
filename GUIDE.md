@@ -7,7 +7,8 @@ code. Keep this open when you publish.
 
 ## Part 1 — What Perch is
 
-A photo journal. You and Kevin Lawrence trade one photograph a week, each with a
+A photo journal that alternates. One week the photograph is yours; the next it
+belongs to a guest photographer, credited under their own name. Each entry has a
 short written story underneath. People subscribe by email and get each new entry
 in their inbox.
 
@@ -23,7 +24,7 @@ image file** sitting in a folder on your computer.
 
 Four pieces make it work:
 
-### 1. Your folder — `~/Desktop/perch`
+### 1. Your folder — `~/Developer/perch`
 
 The whole website lives here. The parts you'll actually touch:
 
@@ -79,16 +80,18 @@ The short version: **commit = save, push = publish.**
 
 ---
 
-## Part 4 — Posting Kevin's Week 2
+## Part 4 — Posting a guest week
 
-Do this when Kevin sends you a photo and a story.
+Do this when a guest sends you a photo and a story. The example below uses Tony
+Bennett for week 2 — swap in whoever's week it is.
 
 ### Step 1 — Save the photo
 
-Put his image file in `~/Desktop/perch/src/images/` and rename it exactly:
+Put their image file in `~/Developer/perch/src/images/` and rename it using the
+week number and their first name:
 
 ```
-week-02-kevin.jpg
+week-02-tony.jpg
 ```
 
 Any size or shape is fine. Don't crop or resize it — the site handles that and
@@ -96,10 +99,11 @@ deliberately never crops.
 
 ### Step 2 — Create the text file
 
-In `~/Desktop/perch/src/content/entries/`, make a new file named exactly:
+In `~/Developer/perch/src/content/entries/`, make a new file with the matching
+name:
 
 ```
-week-02-kevin.md
+week-02-tony.md
 ```
 
 **Easiest way:** duplicate `week-01-sean.md` (right-click → Duplicate), rename
@@ -111,14 +115,17 @@ Paste this in and edit it:
 ---
 week: 2
 date: 2026-07-28
-photographer: Kevin Lawrence
-photo: ../../images/week-02-kevin.jpg
-title: Kevin's Title Here
+photographer: Tony Bennett
+photo: ../../images/week-02-tony.jpg
+title: Their Title Here
 ---
 
-Kevin's story goes here. Write as many paragraphs as you like — leave a blank
+Their story goes here. Write as many paragraphs as you like — leave a blank
 line between them.
 ```
+
+The `photographer:` line is free text, so any name works — that's what makes
+guest weeks possible without changing anything else.
 
 Everything between the two `---` lines is the settings. Everything below is the
 story.
@@ -130,14 +137,14 @@ story.
 
 1. Open **GitHub Desktop**
 2. It shows your changed files on the left
-3. In the **Summary** box — the *narrow top one* — type `Week 2 — Kevin`
+3. In the **Summary** box — the *narrow top one* — type `Week 2 — Tony`
 4. Click **Commit to main**
 5. Click **Push origin** at the top
 
 ### Step 4 — Wait, then check
 
-Give it about 3 minutes, then reload the site. Kevin's photo should be at the
-top, yours below it.
+Give it about 3 minutes, then reload the site. The guest's photo should be at
+the top, yours below it.
 
 ### Step 5 — Send the email
 
@@ -153,9 +160,9 @@ Log into Buttondown and send the broadcast to subscribers.
 week: 2                                  A number. Shows in the byline.
 date: 2026-07-28                         YYYY-MM-DD. Controls the order —
                                          newest goes on top.
-photographer: Kevin Lawrence             Name as it should appear.
-photo: ../../images/week-02-kevin.jpg    Must match the image filename exactly.
-title: Stairwell                         Optional. Falls back to "Week 2".
+photographer: Tony Bennett               Name as it should appear. Any name.
+photo: ../../images/week-02-tony.jpg     Must match the image filename exactly.
+title: Rooftop                           Optional. Falls back to "Week 2".
 ```
 
 The `../../` in the photo line means "go up two folders." Leave it as-is and

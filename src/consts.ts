@@ -1,5 +1,5 @@
 export const SITE = {
   title: 'Perch',
   description:
-    'Two photographers, one photo a week each, traded back and forth.',
+    'A photograph a week. Mine one week, a guest photographer’s the next.',
 } as const;

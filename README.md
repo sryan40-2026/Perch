@@ -1,7 +1,8 @@
 # Perch
 
-A two-person photo journal. Sean Ryan and Kevin Lawrence trade one photo a week,
-each with a short story underneath. Readers subscribe by email.
+A photo journal that alternates: one week Sean Ryan, the next a guest
+photographer under their own byline. Each entry is one photo with a short story
+underneath. Readers subscribe by email.
 
 Astro 7, static output, no database, no admin panel. Publishing is git-based.
 
