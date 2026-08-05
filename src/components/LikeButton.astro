@@ -1,0 +1,132 @@
+---
+// A quiet like button for one photo entry.
+//
+// Talks directly from the browser to Supabase (which stores the likes). The URL
+// and anon key below are PUBLIC by design — they ship in the page, and the
+// database is protected by row-level security, not by hiding the key.
+//
+// If those two env vars aren't set, this renders nothing at all, so the site
+// looks and works exactly as before until Supabase is connected.
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+const enabled =
+  !!import.meta.env.PUBLIC_SUPABASE_URL &&
+  !!import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+---
+
+{
+  enabled && (
+    <button
+      class="like"
+      type="button"
+      data-like
+      data-like-slug={slug}
+      aria-pressed="false"
+      aria-label="Like this photo"
+    >
+      <svg
+        class="like__heart"
+        viewBox="0 0 24 24"
+        width="17"
+        height="17"
+        aria-hidden="true"
+      >
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <span class="like__count" data-like-count aria-hidden="true" />
+    </button>
+  )
+}
+
+<script>
+  const URL_ = import.meta.env.PUBLIC_SUPABASE_URL;
+  const KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-like]')
+  );
+
+  if (URL_ && KEY && buttons.length) {
+    const headers = {
+      apikey: KEY,
+      Authorization: `Bearer ${KEY}`,
+      'Content-Type': 'application/json',
+    };
+
+    // A stable-per-browser id, only used to stop double-liking. Not personal.
+    let visitor = localStorage.getItem('perch_visitor');
+    if (!visitor) {
+      visitor =
+        (crypto.randomUUID && crypto.randomUUID()) ||
+        `${Date.now()}-${Math.random()}`;
+      localStorage.setItem('perch_visitor', visitor);
+    }
+
+    // Which photos this browser has liked — remembered for instant UI.
+    const LIKED_KEY = 'perch_liked';
+    let liked: Set<string>;
+    try {
+      liked = new Set(JSON.parse(localStorage.getItem(LIKED_KEY) || '[]'));
+    } catch {
+      liked = new Set();
+    }
+    const remember = () =>
+      localStorage.setItem(LIKED_KEY, JSON.stringify([...liked]));
+
+    const show = (n: number) => (n > 0 ? String(n) : '');
+
+    const paint = (btn: HTMLButtonElement, count: number, isLiked: boolean) => {
+      const c = btn.querySelector('[data-like-count]');
+      if (c) c.textContent = show(count);
+      btn.setAttribute('aria-pressed', isLiked ? 'true' : 'false');
+    };
+
+    // Load current totals in one request, then reveal the counts.
+    const slugs = buttons.map((b) => b.dataset.likeSlug || '');
+    fetch(`${URL_}/rest/v1/rpc/perch_like_counts`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ p_slugs: slugs }),
+    })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((rows: Array<{ slug: string; count: number }>) => {
+        const totals = new Map(rows.map((row) => [row.slug, Number(row.count)]));
+        buttons.forEach((btn) => {
+          const slug = btn.dataset.likeSlug || '';
+          paint(btn, totals.get(slug) || 0, liked.has(slug));
+        });
+      })
+      .catch(() => {});
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        if (btn.disabled) return;
+        const slug = btn.dataset.likeSlug || '';
+        btn.disabled = true;
+        try {
+          const res = await fetch(`${URL_}/rest/v1/rpc/perch_toggle_like`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ p_slug: slug, p_visitor: visitor }),
+          });
+          const rows = await res.json();
+          const row = Array.isArray(rows) ? rows[0] : rows;
+          if (row) {
+            paint(btn, Number(row.count), !!row.liked);
+            if (row.liked) liked.add(slug);
+            else liked.delete(slug);
+            remember();
+          }
+        } catch {
+          // Network hiccup — leave the button as it was.
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+</script>

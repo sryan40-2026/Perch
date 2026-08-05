@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
+import LikeButton from './LikeButton.astro';
 
 interface Props {
   entry: CollectionEntry<'entries'>;
@@ -46,4 +47,6 @@ const dateLabel = entry.data.date.toLocaleDateString('en-US', {
   <p class="byline">
     {entry.data.photographer} · Week {entry.data.week} · {dateLabel}
   </p>
+
+  <LikeButton slug={entry.id} />
 </article>

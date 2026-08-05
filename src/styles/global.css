@@ -166,6 +166,68 @@ img {
   color: var(--ink-soft);
 }
 
+/* ---------- like button ---------- */
+
+.like {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  padding: 0.15rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.like__heart {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  transition:
+    fill 0.15s ease,
+    stroke 0.15s ease,
+    transform 0.15s ease;
+}
+
+.like[aria-pressed='true'] {
+  color: var(--ink);
+}
+
+.like[aria-pressed='true'] .like__heart {
+  fill: var(--ink);
+  stroke: var(--ink);
+}
+
+.like:hover .like__heart {
+  transform: scale(1.12);
+}
+
+.like:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.like__count {
+  font-variant-numeric: tabular-nums;
+  min-width: 1ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like__heart {
+    transition: none;
+  }
+
+  .like:hover .like__heart {
+    transform: none;
+  }
+}
+
 /* ---------- about page ---------- */
 
 .prose {
