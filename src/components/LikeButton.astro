@@ -44,7 +44,12 @@ const enabled =
 }
 
 <script>
-  const URL_ = import.meta.env.PUBLIC_SUPABASE_URL;
+  // Normalize the project URL: accept either the plain project URL
+  // (https://xxx.supabase.co) or the REST URL (…/rest/v1/) — strip any
+  // trailing slash and a trailing /rest/v1 so we always build one clean path.
+  const URL_ = (import.meta.env.PUBLIC_SUPABASE_URL || '')
+    .replace(/\/+$/, '')
+    .replace(/\/rest\/v1$/, '');
   const KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
   const buttons = Array.from(
     document.querySelectorAll<HTMLButtonElement>('[data-like]')
